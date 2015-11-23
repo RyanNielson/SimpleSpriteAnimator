@@ -37,10 +37,7 @@ namespace SimpleSpriteAnimator
 
         public void Play(string name)
         {
-            SpriteAnimation newSpriteAnimation = GetAnimationByName(name);
-
-            // Need to just change animation instead of resetting.
-            spriteAnimationHelper = new SpriteAnimationHelper(newSpriteAnimation);
+            spriteAnimationHelper.ChangeAnimation(GetAnimationByName(name));
         }
 
         private void UpdateAnimation(float deltaTime)

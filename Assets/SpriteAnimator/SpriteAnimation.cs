@@ -36,11 +36,19 @@ namespace SimpleSpriteAnimator
         }
 
         [SerializeField]
-        private bool loop = true;
-        public bool Loop
+        private SpriteAnimationType spriteAnimationType = SpriteAnimationType.Looping;
+        public SpriteAnimationType SpriteAnimationType
         {
-            get { return loop; }
-            set { loop = value; }
+            get { return spriteAnimationType; }
+            set { spriteAnimationType = value; }
         }
+
+        //[SerializeField]
+        //private bool loop = true;
+        //public bool Loop
+        //{
+        //    get { return loop; }
+        //    set { loop = value; }
+        //}
     }
 }

@@ -5,7 +5,6 @@ namespace SimpleSpriteAnimator
 {
     public class SpriteAnimationHelper
     {
-        private float timeTracker = 0;
         private float frameDuration = 0f;
         private float frameTimeAccumulator = 0f;
         private float totalAnimationTime = 0f;
@@ -21,11 +20,6 @@ namespace SimpleSpriteAnimator
         {
             frameDuration = 1f / spriteAnimation.FPS;
             totalAnimationTime = frameDuration * spriteAnimation.Frames.Count;
-            //float deltaTime = (float)EditorApplication.timeSinceStartup - timeTracker;
-            timeTracker += deltaTime;
-
-            //Debug.Log(deltaTime);
-
 
             frameTimeAccumulator += deltaTime;
 
@@ -41,10 +35,12 @@ namespace SimpleSpriteAnimator
             return currentFrame;
         }
 
-        public void Update(float deltaTime)
+        public void ChangeAnimation(SpriteAnimation spriteAnimation)
         {
-
+            frameDuration = 0f;
+            frameTimeAccumulator = 0f;
+            totalAnimationTime = 0f;
+            this.spriteAnimation = spriteAnimation;
         }
-
     }
 }

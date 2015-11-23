@@ -9,7 +9,7 @@ namespace SimpleSpriteAnimator
     {
         private ReorderableList framesList;
 
-        private SpriteAnimation selectedSpriteAnimation
+        private SpriteAnimation SelectedSpriteAnimation
         {
             get { return target as SpriteAnimation; }
         }
@@ -23,33 +23,9 @@ namespace SimpleSpriteAnimator
         private void OnEnable()
         {
             timeTracker = (float)EditorApplication.timeSinceStartup;
+            spriteAnimationHelper = new SpriteAnimationHelper(SelectedSpriteAnimation);
 
-            framesList = new ReorderableList(selectedSpriteAnimation.Frames, typeof(Sprite), true, true, true, true);
-            //framesList.elementHeight = EditorGUIUtility.singleLineHeight * 5f;
-
-            framesList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-            {
-                SpriteAnimationFrame spriteAnimationFrame = selectedSpriteAnimation.Frames[index];
-
-                EditorGUI.BeginChangeCheck();
-
-                rect.y += 2;
-
-                spriteAnimationFrame.Sprite = EditorGUI.ObjectField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "", spriteAnimationFrame.Sprite, typeof(Sprite), false) as Sprite;
-
-                if (EditorGUI.EndChangeCheck())
-                {
-                    EditorUtility.SetDirty(target);
-                }
-            };
-
-            framesList.drawHeaderCallback = (Rect rect) =>
-            {
-                EditorGUI.LabelField(rect, "Frames");
-            };
-
-         
-            spriteAnimationHelper = new SpriteAnimationHelper(selectedSpriteAnimation);
+            InitializeFrameList();
 
             EditorApplication.update += OnUpdate;
         }
@@ -59,23 +35,29 @@ namespace SimpleSpriteAnimator
             EditorApplication.update -= OnUpdate;
         }
 
-
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
+            //serializedObject.Update();
 
-            if (selectedSpriteAnimation != null && framesList != null)
+            EditorGUI.BeginChangeCheck();
+
+            if (SelectedSpriteAnimation != null && framesList != null)
             {
-                selectedSpriteAnimation.Name = EditorGUILayout.TextField("Name", selectedSpriteAnimation.Name);
-
-                // EditorGUILayout.HelpBox(selectedSpriteAnimation.Name, MessageType.None);
+                SelectedSpriteAnimation.Name = EditorGUILayout.TextField("Name", SelectedSpriteAnimation.Name);
 
                 framesList.DoLayoutList();
-                
-                selectedSpriteAnimation.FPS = Mathf.Max(EditorGUILayout.IntField("FPS", selectedSpriteAnimation.FPS), 0);
+
+                SelectedSpriteAnimation.FPS = Mathf.Max(EditorGUILayout.IntField("FPS", SelectedSpriteAnimation.FPS), 0);
+
+                SelectedSpriteAnimation.SpriteAnimationType = (SpriteAnimationType)EditorGUILayout.EnumPopup("Type", SelectedSpriteAnimation.SpriteAnimationType);
             }
 
-            serializedObject.ApplyModifiedProperties();
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorUtility.SetDirty(target);
+            }
+
+            //serializedObject.ApplyModifiedProperties();
         }
 
         public override bool HasPreviewGUI()
@@ -86,18 +68,6 @@ namespace SimpleSpriteAnimator
         public override bool RequiresConstantRepaint()
         {
             return HasAnimationAndFrames();
-        }
-
-        private bool HasAnimationAndFrames()
-        {
-            return selectedSpriteAnimation != null && selectedSpriteAnimation.Frames.Count > 0;
-        }
-
-        private void OnUpdate()
-        {
-            float deltaTime = (float)EditorApplication.timeSinceStartup - timeTracker;
-            timeTracker += deltaTime;
-            currentFrame = spriteAnimationHelper.UpdateAnimation(deltaTime);
         }
 
         public override void OnPreviewGUI(Rect r, GUIStyle background)
@@ -132,6 +102,44 @@ namespace SimpleSpriteAnimator
                 }
 
                 GUI.DrawTextureWithTexCoords(previewRect, t, r2, true);
+            }
+        }
+
+        private void InitializeFrameList()
+        {
+            framesList = new ReorderableList(SelectedSpriteAnimation.Frames, typeof(Sprite), true, true, true, true);
+            //framesList.elementHeight = EditorGUIUtility.singleLineHeight * 5f;
+
+            framesList.drawElementCallback = DrawElement;
+            framesList.drawHeaderCallback = DrawHeader;
+        }
+
+        private void DrawElement(Rect rect, int index, bool isActive, bool isFocused)
+        {
+            SpriteAnimationFrame spriteAnimationFrame = SelectedSpriteAnimation.Frames[index];
+
+            rect.y += 2;
+
+            spriteAnimationFrame.Sprite = EditorGUI.ObjectField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "", spriteAnimationFrame.Sprite, typeof(Sprite), false) as Sprite;
+        }
+
+        private void DrawHeader(Rect rect)
+        {
+            EditorGUI.LabelField(rect, "Frames");
+        }
+
+        private bool HasAnimationAndFrames()
+        {
+            return SelectedSpriteAnimation != null && SelectedSpriteAnimation.Frames.Count > 0;
+        }
+
+        private void OnUpdate()
+        {
+            if (SelectedSpriteAnimation.Frames.Count > 0)
+            {
+                float deltaTime = (float)EditorApplication.timeSinceStartup - timeTracker;
+                timeTracker += deltaTime;
+                currentFrame = spriteAnimationHelper.UpdateAnimation(deltaTime);
             }
         }
     }
