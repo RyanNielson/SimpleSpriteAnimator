@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteAnimations:
   - {fileID: 11400000, guid: b3149578690056e4cb985d68d3cf02ca, type: 2}
-  - {fileID: 11400000, guid: d7b94ee42d1ef8d4086413351bf5067d, type: 2}
+  playAutomatically: 1
 --- !u!4 &206338613
 Transform:
   m_ObjectHideFlags: 0

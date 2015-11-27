@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: New Sprite Animation
   m_EditorClassIdentifier: 
   animationName: Woo
-  fps: 2
+  fps: 10
   frames:
   - sprite: {fileID: 21300000, guid: b9c23409697972c418a2adfe3268321a, type: 3}
   - sprite: {fileID: 21300004, guid: b9c23409697972c418a2adfe3268321a, type: 3}
   - sprite: {fileID: 21300014, guid: b9c23409697972c418a2adfe3268321a, type: 3}
-  loop: 1
+  spriteAnimationType: 1

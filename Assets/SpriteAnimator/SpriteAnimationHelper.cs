@@ -8,8 +8,11 @@ namespace SimpleSpriteAnimator
         private float frameDuration = 0f;
         private float frameTimeAccumulator = 0f;
         private float totalAnimationTime = 0f;
+        private bool playing = false;
 
         private SpriteAnimation spriteAnimation;
+        private bool done = false;
+        public int currentFrame = 0;
 
         public SpriteAnimationHelper(SpriteAnimation spriteAnimation)
         {
@@ -18,21 +21,29 @@ namespace SimpleSpriteAnimator
 
         public SpriteAnimationFrame UpdateAnimation(float deltaTime)
         {
-            frameDuration = 1f / spriteAnimation.FPS;
-            totalAnimationTime = frameDuration * spriteAnimation.Frames.Count;
-
-            frameTimeAccumulator += deltaTime;
-
-            if (frameTimeAccumulator >= totalAnimationTime)
+            if (playing)
             {
-                frameTimeAccumulator = 0;
+                frameDuration = 1f / spriteAnimation.FPS;
+                totalAnimationTime = frameDuration * spriteAnimation.Frames.Count;
+
+                frameTimeAccumulator += deltaTime;
+
+                if (frameTimeAccumulator >= totalAnimationTime)
+                {
+                    frameTimeAccumulator = 0;
+                }
+
+                if (spriteAnimation.SpriteAnimationType == SpriteAnimationType.PlayOnce && currentFrame < spriteAnimation.Frames.Count - 1)
+                {
+                    currentFrame = Mathf.FloorToInt(frameTimeAccumulator / frameDuration);
+                }
+                else if (spriteAnimation.SpriteAnimationType == SpriteAnimationType.Looping)
+                {
+                    currentFrame = Mathf.FloorToInt(frameTimeAccumulator / frameDuration);
+                }
             }
 
-            int frame = Mathf.FloorToInt(frameTimeAccumulator / frameDuration);
-
-            SpriteAnimationFrame currentFrame = spriteAnimation.Frames[frame];
-
-            return currentFrame;
+            return spriteAnimation.Frames[currentFrame];
         }
 
         public void ChangeAnimation(SpriteAnimation spriteAnimation)
@@ -40,6 +51,8 @@ namespace SimpleSpriteAnimator
             frameDuration = 0f;
             frameTimeAccumulator = 0f;
             totalAnimationTime = 0f;
+            done = false;
+            currentFrame = 0;
             this.spriteAnimation = spriteAnimation;
         }
     }

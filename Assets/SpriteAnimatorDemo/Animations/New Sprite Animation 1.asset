@@ -17,4 +17,4 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: b9c23409697972c418a2adfe3268321a, type: 3}
   - sprite: {fileID: 21300012, guid: b9c23409697972c418a2adfe3268321a, type: 3}
   - sprite: {fileID: 21300016, guid: b9c23409697972c418a2adfe3268321a, type: 3}
-  spriteAnimationType: 1
+  spriteAnimationType: 0

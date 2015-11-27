@@ -42,13 +42,5 @@ namespace SimpleSpriteAnimator
             get { return spriteAnimationType; }
             set { spriteAnimationType = value; }
         }
-
-        //[SerializeField]
-        //private bool loop = true;
-        //public bool Loop
-        //{
-        //    get { return loop; }
-        //    set { loop = value; }
-        //}
     }
 }
