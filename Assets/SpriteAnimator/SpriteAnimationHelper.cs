@@ -11,7 +11,6 @@ namespace SimpleSpriteAnimator
 
         public SpriteAnimationHelper()
         {
-
         }
 
         public SpriteAnimationHelper(SpriteAnimation spriteAnimation)
@@ -24,9 +23,8 @@ namespace SimpleSpriteAnimator
             if (CurrentAnimation)
             {
                 animationTime += deltaTime * CurrentAnimation.FPS;
-                int currentFrame = (int)animationTime % CurrentAnimation.Frames.Count;
 
-                return CurrentAnimation.Frames[currentFrame];
+                return GetAnimationFrame();
             }
 
             return null;
@@ -36,6 +34,33 @@ namespace SimpleSpriteAnimator
         {
             animationTime = 0f;
             CurrentAnimation = spriteAnimation;
+        }
+
+        private SpriteAnimationFrame GetAnimationFrame()
+        {
+            int currentFrame = 0;
+
+            switch (CurrentAnimation.SpriteAnimationType)
+            {
+                case SpriteAnimationType.Looping:
+                    currentFrame = GetLoopingFrame();
+                    break;
+                case SpriteAnimationType.PlayOnce:
+                    currentFrame = GetPlayOnceFrame();
+                    break;
+            }
+
+            return CurrentAnimation.Frames[currentFrame];
+        }
+
+        private int GetLoopingFrame()
+        {
+            return (int)animationTime % CurrentAnimation.Frames.Count;
+        }
+
+        private int GetPlayOnceFrame()
+        {
+            return Mathf.Min((int)animationTime, CurrentAnimation.Frames.Count - 1);
         }
     }
 }

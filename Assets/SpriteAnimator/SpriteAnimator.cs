@@ -14,7 +14,7 @@ namespace SimpleSpriteAnimator
 
         private SpriteAnimation DefaultAnimation
         {
-            get { return spriteAnimations[0]; }
+            get { return spriteAnimations.Count > 0 ? spriteAnimations[0] : null; }
         }
 
         private SpriteAnimation CurrentAnimation
