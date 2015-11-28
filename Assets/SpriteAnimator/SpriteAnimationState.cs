@@ -1,5 +1,8 @@
-﻿public enum SpriteAnimationState
+﻿namespace SimpleSpriteAnimator
 {
-    Playing = 0,
-    Paused = 1,
+    public enum SpriteAnimationState
+    {
+        Playing = 0,
+        Paused = 1
+    }
 }

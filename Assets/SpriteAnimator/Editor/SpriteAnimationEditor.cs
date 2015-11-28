@@ -28,8 +28,6 @@ namespace SimpleSpriteAnimator
             InitializeFrameList();
 
             EditorApplication.update += OnUpdate;
-
-            Debug.Log("ENABLE");
         }
 
         private void OnDisable()

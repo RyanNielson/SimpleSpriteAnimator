@@ -95,6 +95,7 @@ GameObject:
   - 4: {fileID: 206338613}
   - 212: {fileID: 206338614}
   - 114: {fileID: 206338612}
+  - 114: {fileID: 206338615}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -114,8 +115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteAnimations:
+  - {fileID: 11400000, guid: d7b94ee42d1ef8d4086413351bf5067d, type: 2}
   - {fileID: 11400000, guid: b3149578690056e4cb985d68d3cf02ca, type: 2}
-  playAutomatically: 1
+  playAutomatically: 0
 --- !u!4 &206338613
 Transform:
   m_ObjectHideFlags: 0
@@ -152,8 +154,19 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b9c23409697972c418a2adfe3268321a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &206338615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 206338611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df73f12254f3d4243ad3a9e04739c707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &497225774
 GameObject:
   m_ObjectHideFlags: 0

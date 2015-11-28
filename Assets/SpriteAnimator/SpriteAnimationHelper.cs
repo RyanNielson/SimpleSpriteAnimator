@@ -5,55 +5,37 @@ namespace SimpleSpriteAnimator
 {
     public class SpriteAnimationHelper
     {
-        private float frameDuration = 0f;
-        private float frameTimeAccumulator = 0f;
-        private float totalAnimationTime = 0f;
-        private bool playing = false;
+        private float animationTime = 0.0f;
 
-        private SpriteAnimation spriteAnimation;
-        private bool done = false;
-        public int currentFrame = 0;
+        public SpriteAnimation CurrentAnimation { get; set; }
+
+        public SpriteAnimationHelper()
+        {
+
+        }
 
         public SpriteAnimationHelper(SpriteAnimation spriteAnimation)
         {
-            this.spriteAnimation = spriteAnimation;
+            CurrentAnimation = spriteAnimation;
         }
 
         public SpriteAnimationFrame UpdateAnimation(float deltaTime)
         {
-            if (playing)
+            if (CurrentAnimation)
             {
-                frameDuration = 1f / spriteAnimation.FPS;
-                totalAnimationTime = frameDuration * spriteAnimation.Frames.Count;
+                animationTime += deltaTime * CurrentAnimation.FPS;
+                int currentFrame = (int)animationTime % CurrentAnimation.Frames.Count;
 
-                frameTimeAccumulator += deltaTime;
-
-                if (frameTimeAccumulator >= totalAnimationTime)
-                {
-                    frameTimeAccumulator = 0;
-                }
-
-                if (spriteAnimation.SpriteAnimationType == SpriteAnimationType.PlayOnce && currentFrame < spriteAnimation.Frames.Count - 1)
-                {
-                    currentFrame = Mathf.FloorToInt(frameTimeAccumulator / frameDuration);
-                }
-                else if (spriteAnimation.SpriteAnimationType == SpriteAnimationType.Looping)
-                {
-                    currentFrame = Mathf.FloorToInt(frameTimeAccumulator / frameDuration);
-                }
+                return CurrentAnimation.Frames[currentFrame];
             }
 
-            return spriteAnimation.Frames[currentFrame];
+            return null;
         }
 
         public void ChangeAnimation(SpriteAnimation spriteAnimation)
         {
-            frameDuration = 0f;
-            frameTimeAccumulator = 0f;
-            totalAnimationTime = 0f;
-            done = false;
-            currentFrame = 0;
-            this.spriteAnimation = spriteAnimation;
+            animationTime = 0f;
+            CurrentAnimation = spriteAnimation;
         }
     }
 }
