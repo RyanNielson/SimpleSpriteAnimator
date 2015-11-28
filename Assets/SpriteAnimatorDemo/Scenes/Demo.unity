@@ -97,7 +97,7 @@ GameObject:
   - 114: {fileID: 206338612}
   - 114: {fileID: 206338615}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: AnimatedAlien
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteAnimations:
-  - {fileID: 11400000, guid: d7b94ee42d1ef8d4086413351bf5067d, type: 2}
-  - {fileID: 11400000, guid: b3149578690056e4cb985d68d3cf02ca, type: 2}
+  - {fileID: 11400000, guid: 61ada22025e30644d8a4097a3df88434, type: 2}
+  - {fileID: 11400000, guid: 4c261293112ad2e4094a4efa22cae7eb, type: 2}
   playAutomatically: 1
 --- !u!4 &206338613
 Transform:
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300036, guid: c5768973a0bf4674184626e217a7e66d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &206338615
 MonoBehaviour:

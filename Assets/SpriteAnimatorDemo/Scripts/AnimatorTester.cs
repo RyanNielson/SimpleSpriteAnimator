@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using SimpleSpriteAnimator;
 
 public class AnimatorTester : MonoBehaviour
@@ -11,15 +10,16 @@ public class AnimatorTester : MonoBehaviour
         spriteAnimator = GetComponent<SpriteAnimator>();
 	}
 
-	void Update ()
+    private void OnGUI()
     {
-	    if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (GUI.Button(new Rect(10, 10, 150, 30), "Play Walk Animation"))
         {
-            spriteAnimator.Play("No");
+            spriteAnimator.Play("Walk");
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+
+        if (GUI.Button(new Rect(10, 50, 150, 30), "Play Climb Animation"))
         {
-            spriteAnimator.Play("Yes");
+            spriteAnimator.Play("Climb");
         }
-	}
+    }
 }
