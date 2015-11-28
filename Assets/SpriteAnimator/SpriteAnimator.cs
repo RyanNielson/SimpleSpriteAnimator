@@ -9,44 +9,89 @@ namespace SimpleSpriteAnimator
         [SerializeField]
         private List<SpriteAnimation> spriteAnimations;
 
+        [SerializeField]
+        private bool playAutomatically = true;
+
+        private SpriteAnimation DefaultAnimation
+        {
+            get { return spriteAnimations[0]; }
+        }
+
+        private SpriteAnimation CurrentAnimation
+        {
+            get { return spriteAnimationHelper.CurrentAnimation; }
+        }
+
+        public bool Playing
+        {
+            get { return state == SpriteAnimationState.Playing; }
+        }
+
+        public bool Paused
+        {
+            get { return state == SpriteAnimationState.Paused; }
+        }
+
         private SpriteRenderer spriteRenderer;
 
         private SpriteAnimationHelper spriteAnimationHelper;
+
+        private SpriteAnimationState state = SpriteAnimationState.Playing;
 
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
 
-            spriteAnimationHelper = new SpriteAnimationHelper(spriteAnimations[0]);
+            spriteAnimationHelper = new SpriteAnimationHelper();
         }
 
-        private void Update()
+        private void Start()
         {
-            UpdateAnimation(Time.deltaTime);
-
-            if (Input.GetButtonDown("Fire1"))
+            if (playAutomatically)
             {
-                Play("Nah");
+                Play(DefaultAnimation);
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (Playing)
+            {
+                SpriteAnimationFrame currentFrame = spriteAnimationHelper.UpdateAnimation(Time.deltaTime);
+
+                if (currentFrame != null)
+                {
+                    spriteRenderer.sprite = currentFrame.Sprite;
+                }
+            }
+        }
+
+        public void Play()
+        {
+            if (CurrentAnimation == null)
+            {
+                spriteAnimationHelper.ChangeAnimation(DefaultAnimation);
             }
 
-            if (Input.GetButtonDown("Horizontal"))
-            {
-                Play("Woo");
-            }
+            Play(CurrentAnimation);
         }
 
         public void Play(string name)
         {
-            spriteAnimationHelper.ChangeAnimation(GetAnimationByName(name));
+            Play(GetAnimationByName(name));
         }
 
-        private void UpdateAnimation(float deltaTime)
+        public void Play(SpriteAnimation animation)
         {
-            SpriteAnimationFrame frame = spriteAnimationHelper.UpdateAnimation(Time.deltaTime);
-
-            spriteRenderer.sprite = frame != null ? frame.Sprite : null;
+            Play(animation, 0);
         }
 
+        public void Play(SpriteAnimation animation, float startFrame)
+        {
+            state = SpriteAnimationState.Playing;
+            spriteAnimationHelper.ChangeAnimation(animation);
+        }
+ 
         private SpriteAnimation GetAnimationByName(string name)
         {
             for (int i = 0; i < spriteAnimations.Count; i++)
