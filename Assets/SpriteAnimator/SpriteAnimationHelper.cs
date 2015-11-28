@@ -5,42 +5,37 @@ namespace SimpleSpriteAnimator
 {
     public class SpriteAnimationHelper
     {
-        private float frameDuration = 0f;
-        private float frameTimeAccumulator = 0f;
-        private float totalAnimationTime = 0f;
+        private float animationTime = 0.0f;
 
-        private SpriteAnimation spriteAnimation;
+        public SpriteAnimation CurrentAnimation { get; set; }
+
+        public SpriteAnimationHelper()
+        {
+
+        }
 
         public SpriteAnimationHelper(SpriteAnimation spriteAnimation)
         {
-            this.spriteAnimation = spriteAnimation;
+            CurrentAnimation = spriteAnimation;
         }
 
         public SpriteAnimationFrame UpdateAnimation(float deltaTime)
         {
-            frameDuration = 1f / spriteAnimation.FPS;
-            totalAnimationTime = frameDuration * spriteAnimation.Frames.Count;
-
-            frameTimeAccumulator += deltaTime;
-
-            if (frameTimeAccumulator >= totalAnimationTime)
+            if (CurrentAnimation)
             {
-                frameTimeAccumulator = 0;
+                animationTime += deltaTime * CurrentAnimation.FPS;
+                int currentFrame = (int)animationTime % CurrentAnimation.Frames.Count;
+
+                return CurrentAnimation.Frames[currentFrame];
             }
 
-            int frame = Mathf.FloorToInt(frameTimeAccumulator / frameDuration);
-
-            SpriteAnimationFrame currentFrame = spriteAnimation.Frames[frame];
-
-            return currentFrame;
+            return null;
         }
 
         public void ChangeAnimation(SpriteAnimation spriteAnimation)
         {
-            frameDuration = 0f;
-            frameTimeAccumulator = 0f;
-            totalAnimationTime = 0f;
-            this.spriteAnimation = spriteAnimation;
+            animationTime = 0f;
+            CurrentAnimation = spriteAnimation;
         }
     }
 }
