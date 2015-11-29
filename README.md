@@ -1,8 +1,6 @@
 # Simple Sprite Animator
 Simpler 2D sprite animation in Unity.
 
-Sprite animation in Unity is powerful, but often too complicated. You have to create animations, set up animator states, add transitions, and much more. This project aims to make sprite animation much simpler.
-
 ##### This is an early work in progress. Please report any issues you find. Also, feel free to contribute fixes or additions.
 
 ## Why Should I Use Simple Sprite Animator?
