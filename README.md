@@ -23,16 +23,42 @@ Copy the `SpriteAnimator` folder into your `Assets` folder.
 
 #### Sprite Animation
 
-- Name: The name of the animation. This will be used to play the animation via the `Sprite Animator`.
-- Frames: A list of sprites that make up the animation.
-- FPS (Frames per second): The framerate of the animation. The higher this number, the faster the animation will play.
-- Type: The type of the animation, this can be Looping or Play Once.
-  - Looping: Plays the animation from start to end, then repeats.
-  - Place Once: Plays the animation from start to end, then stops on the last frame.
+- `Name`: The name of the animation. This will be used to play the animation via the `Sprite Animator`.
+- `Frames`: A list of sprites that make up the animation.
+- `FPS (Frames per second)`: The framerate of the animation. The higher this number, the faster the animation will play.
+- `Type`: The type of the animation, this can be Looping or Play Once.
+  - `Looping`: Plays the animation from start to end, then repeats.
+  - `Place Once`: Plays the animation from start to end, then stops on the last frame.
 
 #### Sprite Animator
-- Sprite Animations: A list of sprite animations the sprite animator can play.
-- Play Automatically: If checked, the first animation will play as soon as the scene starts.
+- `Sprite Animations`: A list of sprite animations the sprite animator can play.
+- `Play Automatically`: If checked, the first animation will play as soon as the scene starts.
+
+## API
+
+#### Example
+
+The methods below should be called on the `SpriteAnimator` component.
+
+- `Play()`: Play the last played animation from the beginning. If not used previously, the first animation will be used.
+- `Play(string name)`: Play the animation with the given name.
+
+```csharp
+public class AnimatorTester : MonoBehaviour
+{
+    private SpriteAnimator spriteAnimator;
+
+	  void Start ()
+    {
+        spriteAnimator = GetComponent<SpriteAnimator>();
+	  }
+
+    void Update()
+    {
+        spriteAnimator.Play("Walk"); // Play the animation named "Walk"
+    }
+}
+```
 
 ## Demo
 
