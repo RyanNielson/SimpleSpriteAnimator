@@ -83,11 +83,6 @@ namespace SimpleSpriteAnimator
 
         public void Play(SpriteAnimation animation)
         {
-            Play(animation, 0);
-        }
-
-        public void Play(SpriteAnimation animation, float startFrame)
-        {
             state = SpriteAnimationState.Playing;
             spriteAnimationHelper.ChangeAnimation(animation);
         }
