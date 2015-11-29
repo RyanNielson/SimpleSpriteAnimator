@@ -1,17 +1,17 @@
-# SimpleSpriteAnimator
+# Simple Sprite Animator
 Simpler 2D sprite animation in Unity.
 
 Sprite animation in Unity is powerful, but often too complicated. You have to create animations, set up animator states, add transitions, and much more. This project aims to make sprite animation much simpler.
 
 ##### This is an early work in progress. Please report any issues you find. Also, feel free to contribute fixes or additions.
 
-## Why Should I Use SimpleSpriteAnimator?
+## Why Should I Use Simple Sprite Animator?
 
 Sprite animation in Unity is very powerful, but often too complicated when trying to make simple 2D sprite animations. You have to create animations, set up animator states, add transitions, and much more. This project aims to make sprite animation much simpler.
 
 ## Installation
 
-Copy the `SpriteAnimator` folder into your `Assets` folder.
+Copy the `SimpleSpriteAnimator` folder into your `Assets` folder.
 
 ## Usage
 
@@ -44,6 +44,8 @@ The methods below should be called on the `SpriteAnimator` component.
 - `Play(string name)`: Play the animation with the given name.
 
 ```csharp
+using SimpleSpriteAnimator;
+
 public class AnimatorTester : MonoBehaviour
 {
     private SpriteAnimator spriteAnimator;
@@ -62,7 +64,7 @@ public class AnimatorTester : MonoBehaviour
 
 ## Demo
 
-This project contains a demo in the `SpriteAnimatorDemo` folder. This includes an example of two animations, and a game object with an attached `Sprite Animator` component. It demonstrates changing animations using two GUI buttons.
+This project contains a demo in the `SimpleSpriteAnimatorDemo` folder. This includes an example of two animations, and a game object with an attached `Sprite Animator` component. It demonstrates changing animations using two GUI buttons.
 
 
 
